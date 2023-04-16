@@ -22,7 +22,7 @@
     <!-- drawer -->
     <div class="drawer drawer-mobile">
       <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-      <div class="drawer-content flex flex-col bg-base-200">
+      <div class="drawer-content flex flex-col bg-base-200 relative">
         <!-- Page content here -->
 
         <!-- navbar -->
@@ -103,7 +103,7 @@
           </div>
         </div>
 
-        <div class="m-10">{% block content %} {% endblock content %}</div>
+        <div class="m-5 lg:m-10">{% block content %} {% endblock content %}</div>
 
         <!-- <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label> -->
       </div>
@@ -165,18 +165,25 @@
             </li>
             <div class="divider"></div>
             <li class="menu-title"><span>لیست های کار</span></li>
-            
+
             {% for list in Lists %}
-              <li class="font-semibold"><a><i class="fa-solid fa-bars"></i> {{ list.name }}</a></li>
-              
+
+            <li class="font-semibold">
+              <a href="{% url 'list_detail' list.pk %}"><i class="fa-solid fa-bars"></i> {{ list.name }}</a>
+            </li>
+
             {% empty %}
-            <div class="text-center text-slate-600 font-semibold text-base px-5 py-10">
+            <div
+              class="text-center text-slate-600 font-semibold text-base px-5 py-10"
+            >
               <span>شما هیچ لیستی ندارید T-T</span>
             </div>
             {% endfor %}
-            
+
             <li>
-              <a href="{% url 'list_new' %}" class="mt-2 btn-primary text-base-300 font-semibold"
+              <a
+                href="{% url 'list_new' %}"
+                class="mt-2 btn-primary text-base-300 font-semibold"
                 ><i class="fa-solid fa-plus"></i> ساخت لیست جدید</a
               >
             </li>

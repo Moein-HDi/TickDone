@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'todo',
     'accounts',
+    #3rd party
 ]
 
 MIDDLEWARE = [

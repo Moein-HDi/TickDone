@@ -3,7 +3,7 @@
 
       <div class="card flex-shrink-0 w-full shadow bg-base-100">
         <div class="card-body">
-          <div class="text-2xl font-black text-center text-primary">لیست جدید</div>
+          <div class="text-2xl font-black text-center text-primary">ویرایش لیست</div>
           <form method="post">
             {% csrf_token %}
             <span class="text-error">{{ form.non_field_errors }}</span>
@@ -15,7 +15,7 @@
                 type="text"
                 class="input input-bordered"
                 name="name"
-                autofocus
+                value="{{ current_list.name }}"
                 maxlength="25"
                 required
                 id="id_name"
@@ -24,7 +24,7 @@
             </div>
             
             <div class="form-control mt-6">
-              <button type="submit" class="btn btn-primary">اضافه کردن لیست</button>
+              <button type="submit" class="btn btn-primary">ذخیره تغییرات</button>
             </div>
           </form>
         </div>
