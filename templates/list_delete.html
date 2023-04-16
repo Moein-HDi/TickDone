@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-      <div class="card flex-shrink-0 w-full shadow bg-base-100">
-        <div class="card-body">
+      
           <div class="text-2xl font-black text-center text-primary">حذف لیست</div>
+          <div class="divider"></div>
           <form method="post">
             {% csrf_token %}
             آیا از حذف لیست <span class="text-primary font-semibold">"{{ current_list.name }}"</span> مطمئن هستید؟
@@ -12,7 +12,6 @@
               <button type="submit" value="Confirm" class="btn btn-error">بله مطمئنم، حذف شود</button>
             </div>
           </form>
-        </div>
-      </div>
+        
   
   {% endblock content %}

@@ -1,9 +1,9 @@
 {% extends 'base.html' %} {% block content %}
 <div>
   <div class="absolute z-50 bottom-10 left-10 h-16 w-16">
-    <button class="btn btn-circle btn-lg btn-primary shadow">
+    <a href="{% url 'task_new' current_list.pk %}?next={{ request.path }}" class="btn btn-circle btn-lg btn-primary shadow">
       <i class="fa-solid fa-plus text-3xl"></i>
-    </button>
+    </a>
   </div>
 
   <div class="overflow-x-auto">
@@ -14,42 +14,30 @@
         <tr>
           <td>
             <div class="text-base lg:text-2xl font-black">
-              <i class="fa-solid fa-bars text-primary ml-2"></i> {{current_list.name }}
+              <i class="fa-solid fa-bars text-primary ml-2"></i>
+              {{current_list.name }}
             </div>
           </td>
-          <th class="text-end"><a
-            href="{% url 'list_update' current_list.pk %}"
-            class="btn btn-square btn-ghost text-base lg:text-lg"
-            ><i class="fa-solid fa-pen-to-square"></i
-          ></a>
-          <a
-            href="{% url 'list_delete' current_list.pk %}"
-            class="btn btn-square btn-ghost text-base lg:text-lg"
-            ><i class="fa-solid fa-trash-can"></i
-          ></a></th>
+          <th class="text-end">
+            <a
+              href="{% url 'list_update' current_list.pk %}?next={{ request.path }}"
+              class="btn btn-square btn-ghost text-base lg:text-lg"
+              ><i class="fa-solid fa-pen-to-square"></i
+            ></a>
+            <a
+              href="{% url 'list_delete' current_list.pk %}"
+              class="btn btn-square btn-ghost text-base lg:text-lg"
+              ><i class="fa-solid fa-trash-can"></i
+            ></a>
+          </th>
         </tr>
       </tbody>
     </table>
   </div>
 
-  
-
-  <!-- <form method="post">
-      {% csrf_token %}
-      <div class="form-control">
-          <div class="input-group">
-            <input type="text" placeholder="افزودن کار جدید…" class="input input-bordered w-full" />
-            <input type="text" placeholder="تاریخ" class="input input-bordered w-full" />
-  
-            <button class="btn btn-square btn-primary">
-              <i class="fa-solid fa-plus"></i>
-            </button>
-          </div>
-        </div>
-    </form> -->
   <div class="divider"></div>
   <div class="overflow-x-auto">
-    <table class="table-compact lg:table w-full">
+    <table class="table-compact w-full">
       <tbody>
         <!-- row 1 -->
         {% for task in Tasks %}
@@ -57,18 +45,22 @@
           <th class="w-1">
             <input
               type="checkbox"
-              checked="checked"
-              class="checkbox checkbox-primary ml-4"
+              name="task"
+              value="{{ task.pk }}" {% if task.complete %}checked{% endif %} class="checkbox checkbox-primary ml-4"
             />
           </th>
-          <td class="text-start">{{ task.name }}</td>
-          <th class="text-end"><div class="flex-none text-primary font-semibold">2 روز</div></th>
+          <td class="text-start lg:text-base"><a href="{% url 'task_update' task.pk %}?next={{ request.path }}">{{ task.name }}</a></td>
+          <th class="text-end">
+            <div class="flex-none lg:text-base text-primary font-semibold">
+              2 روز
+            </div>
+          </th>
         </tr>
         {% empty %}
         <div
-          class="mb-3 p-5 text-center justify-center text-lg font-semibold text-slate-600"
+          class="mb-3 p-5 text-center justify-center text-lg font-semibold opacity-20"
         >
-          هیچ کاری توی این لیست وجود نداره (°ー°〃)
+          هیچ کاری توی این لیست وجود نداره</br>(°ー°〃)
         </div>
         {% endfor %}
       </tbody>

@@ -22,3 +22,30 @@
     font-family: var(--font-default);
   }
   
+
+  /* ------------date picker------------ */
+  jdp-container,jdp-container .jdp-year select,jdp-container .jdp-month select{
+    @apply bg-base-100 !important;
+}
+
+jdp-container .jdp-months, jdp-container .jdp-years {
+    @apply text-base-content text-opacity-80 !important;
+    @apply fill-base-content opacity-80 !important;
+}
+jdp-container .jdp-day-name {
+    @apply bg-base-300 !important;
+    
+}
+jdp-container .jdp-day, jdp-container .jdp-day-name {
+    @apply text-base-content text-opacity-80 !important;
+}
+jdp-container .jdp-day:empty {
+    border-color: #323232 !important;
+}
+jdp-container .jdp-btn-empty, jdp-container .jdp-btn-today, jdp-container .jdp-btn-close, jdp-container .jdp-days .jdp-day.selected {
+    @apply btn-primary !important;
+}
+
+jdp-container .holly-day {
+  @apply text-error !important;
+}

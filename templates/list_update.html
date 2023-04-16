@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-      <div class="card flex-shrink-0 w-full shadow bg-base-100">
-        <div class="card-body">
+      
           <div class="text-2xl font-black text-center text-primary">ویرایش لیست</div>
+          <div class="divider"></div>
           <form method="post">
             {% csrf_token %}
             <span class="text-error">{{ form.non_field_errors }}</span>
@@ -27,7 +27,6 @@
               <button type="submit" class="btn btn-primary">ذخیره تغییرات</button>
             </div>
           </form>
-        </div>
-      </div>
+       
   
   {% endblock content %}

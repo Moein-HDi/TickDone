@@ -9,6 +9,7 @@
     <title>تیک دان</title>
 
     <link rel="stylesheet" href="{% static 'src/output.css' %}" />
+    <link rel="stylesheet" href="{% static 'jalalidatepicker.min.css' %}" />
     <script
       src="https://kit.fontawesome.com/63c4b57529.js"
       crossorigin="anonymous"
@@ -103,7 +104,9 @@
           </div>
         </div>
 
-        <div class="m-5 lg:m-10">{% block content %} {% endblock content %}</div>
+        <div class="m-5 lg:m-10">
+          {% block content %} {% endblock content %}
+        </div>
 
         <!-- <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label> -->
       </div>
@@ -169,12 +172,14 @@
             {% for list in Lists %}
 
             <li class="font-semibold">
-              <a href="{% url 'list_detail' list.pk %}"><i class="fa-solid fa-bars"></i> {{ list.name }}</a>
+              <a href="{% url 'list_detail' list.pk %}"
+                ><i class="fa-solid fa-bars"></i> {{ list.name }}</a
+              >
             </li>
 
             {% empty %}
             <div
-              class="text-center text-slate-600 font-semibold text-base px-5 py-10"
+              class="text-center opacity-20 font-semibold text-base px-5 py-10"
             >
               <span>شما هیچ لیستی ندارید T-T</span>
             </div>
@@ -183,7 +188,7 @@
             <li>
               <a
                 href="{% url 'list_new' %}"
-                class="mt-2 btn-primary text-base-300 font-semibold"
+                class="mt-2 active font-semibold"
                 ><i class="fa-solid fa-plus"></i> ساخت لیست جدید</a
               >
             </li>
@@ -191,5 +196,36 @@
         </ul>
       </div>
     </div>
+    <script src="{% static 'jquery.js' %}"></script>
+    <script src="{% static 'jalalidatepicker.min.js' %}"></script>
+    <script>jalaliDatepicker.startWatch({
+    minDate:"attr",
+    persianDigits:"True",
+    autoReadOnlyInput:"True",
+    separatorChars:{
+      date:"-"
+   },
+   
+   
+    });</script>
+    <script>
+      $('input[name^="task"]').each(function() {
+        const checkbox = $(this);
+        const td = checkbox.closest('tr').find('td'); // get the corresponding <td> element
+      
+        checkbox.change(function() {
+          if (checkbox.is(':checked')) {
+            td.addClass('line-through'); // add a class when the checkbox is checked
+            td.addClass('italic');
+            td.addClass('opacity-50');
+          } else {
+            td.removeClass('line-through'); // remove the class when the checkbox is unchecked
+            td.removeClass('italic');
+            td.removeClass('opacity-50');
+          }
+        });
+      });
+      
+    </script>
   </body>
 </html>

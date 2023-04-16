@@ -1,0 +1,82 @@
+{% extends 'base.html' %} {% block content %}
+
+
+<div class="overflow-x-auto">
+    <table class="table-compact w-full">
+      <tbody>
+        <!-- row 1 -->
+
+        <tr>
+          <td>
+            <div class="text-primary text-xl font-black">
+              {{ current_task.name }}
+            </div>
+          </td>
+          <th class="text-end">
+            <a
+              href=""
+              class="btn btn-square btn-ghost text-base lg:text-lg"
+              ><i class="fa-solid fa-trash-can"></i
+            ></a>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+    <div class="divider"></div>
+    <form method="post">
+      {% csrf_token %}
+      
+      <div class="form-control">
+        <label class="label" for="id_name">
+          <span class="label-text text-opacity-50">نام کار:</span>
+        </label>
+        <input
+          type="text"
+          class="input input-ghost"
+          name="name"
+          value="{{current_task.name}}"
+          maxlength="25"
+          required
+          id="id_name"
+        />
+        
+      </div>
+
+      <div class="form-control">
+        <label class="label" for="id_due_date">
+          <span class="label-text text-opacity-50">تاریخ:</span>
+        </label>
+        <input
+          data-jdp
+          data-jdp-min-date="today"
+          value="{{current_task.due_date|date:"Y-m-d" }}"
+          class="input input-ghost"
+          name="due_date"
+          id="id_due_date"
+        />
+        
+      </div>
+
+      <div class="form-control">
+        <label class="label" for="id_description">
+          <span class="label-text text-opacity-50">توضیحات:</span>
+        </label>
+        <textarea
+          class="textarea textarea-ghost"
+          
+          name="description"
+          maxlength="200"
+          id="id_description"
+        >{{current_task.description}}</textarea>
+       
+      </div>
+
+      <div class="form-control mt-6">
+        <button type="submit" class="btn btn-primary">ویرایش کار</button>
+      </div>
+    </form>
+  
+
+{% endblock content %}
