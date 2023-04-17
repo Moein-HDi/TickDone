@@ -1,7 +1,7 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'navs.html' %} {% block content %}
 
 
-    <div class="text-2xl font-black text-center">
+    <div class="text-xl lg:text-2xl font-black text-center">
       کار جدید در <span class="text-primary">{{ current_list.name }}</span>
     </div>
     <div class="divider"></div>
@@ -10,7 +10,7 @@
       
       <div class="form-control">
         <label class="label" for="id_name">
-          <span class="label-text">نام کار:</span>
+          <span class="label-text">عنوان کار:</span>
         </label>
         <input
           type="text"
@@ -44,6 +44,7 @@
         </label>
         <textarea
           class="textarea textarea-bordered"
+          oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
           name="description"
           maxlength="200"
           id="id_description"

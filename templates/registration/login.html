@@ -1,29 +1,9 @@
-{% load static %}
+{% extends 'base.html' %} {% block nav %}
 
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>تیک دان</title>
-
-    <link rel="stylesheet" href="{% static 'src/output.css' %}" />
-    <script
-      src="https://kit.fontawesome.com/63c4b57529.js"
-      crossorigin="anonymous"
-    ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
-    />
-  </head>
-  <body dir="rtl">
-    
-    <div class="hero min-h-screen bg-base-200">
-      
-      <div class="hero-content flex-col">
-        <div>
-          <svg
+<div class="hero min-h-screen bg-base-200">
+  <div class="hero-content flex-col">
+    <div>
+      <svg
         id="Layer_1"
         class="h-16 w-2h-16 ml-2"
         data-name="Layer 1"
@@ -49,59 +29,56 @@
           d="M900.28,280.08a68.76,68.76,0,0,1-9,11.13l-90,90-330.07,330a68.81,68.81,0,0,1-97.38,0L195,532.42l-31.18-31.18a68.86,68.86,0,1,1,97.37-97.4L422.49,565.17,793.85,193.81a68.88,68.88,0,0,1,106.43,86.27Z"
         />
       </svg>
-        </div>
-        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-          <div class="card-body">
-            <div class="text-2xl font-black text-center text-primary">ورود</div>
-            <form method="post">
-              {% csrf_token %}
-              <span class="text-error">{{ form.non_field_errors }}</span>
-              <div class="form-control">
-                <label class="label" for="id_username">
-                  <span class="label-text">نام کاربری:</span>
-                </label>
-                <input
-                  type="text"
-                  class="input input-bordered"
-                  name="username"
-                  autofocus
-                  autocapitalize="none"
-                  autocomplete="username"
-                  maxlength="150"
-                  required
-                  id="id_username"
-                />
-                <span class="text-error">{{ form.username.errors }}</span>
-              </div>
-              <div class="form-control">
-                <label class="label" for="id_password">
-                  <span class="label-text">کلمه عبور:</span>
-                </label>
-                <input
-                  type="password"
-                  class="input input-bordered"
-                  name="password"
-                  autocomplete="current-password"
-                  required
-                  id="id_password"
-                />
-                <span class="text-error">{{ form.password.errors }}</span>
-              </div>
-              <label class="label">
-                حساب کاربری ندارید؟
-                <a
-                  href="{% url 'signup' %}"
-                  class="link link-primary link-hover"
-                  >ثبت نام کنید.</a
-                >
-              </label>
-              <div class="form-control mt-6">
-                <button class="btn btn-primary">ورود</button>
-              </div>
-            </form>
+    </div>
+    <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+      <div class="card-body">
+        <div class="text-2xl font-black text-center text-primary">ورود</div>
+        <form method="post">
+          {% csrf_token %}
+          <span class="text-error">{{ form.non_field_errors }}</span>
+          <div class="form-control">
+            <label class="label" for="id_username">
+              <span class="label-text">نام کاربری:</span>
+            </label>
+            <input
+              type="text"
+              class="input input-bordered"
+              name="username"
+              autofocus
+              autocapitalize="none"
+              autocomplete="username"
+              maxlength="150"
+              required
+              id="id_username"
+            />
+            <span class="text-error">{{ form.username.errors }}</span>
           </div>
-        </div>
+          <div class="form-control">
+            <label class="label" for="id_password">
+              <span class="label-text">کلمه عبور:</span>
+            </label>
+            <input
+              type="password"
+              class="input input-bordered"
+              name="password"
+              autocomplete="current-password"
+              required
+              id="id_password"
+            />
+            <span class="text-error">{{ form.password.errors }}</span>
+          </div>
+          <label class="label">
+            حساب کاربری ندارید؟
+            <a href="{% url 'signup' %}" class="link link-primary link-hover"
+              >ثبت نام کنید.</a
+            >
+          </label>
+          <div class="form-control mt-6">
+            <button class="btn btn-primary">ورود</button>
+          </div>
+        </form>
       </div>
     </div>
-  </body>
-</html>
+  </div>
+</div>
+{% endblock nav %}

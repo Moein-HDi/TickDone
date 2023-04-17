@@ -1,14 +1,23 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from .models import *
 from django.urls import reverse
+from django.http import JsonResponse
+import locale
+import jdatetime
+
 
 # Homepage
 @login_required(login_url='login')
 def HomePageView(request):
+    
+    locale.setlocale(locale.LC_ALL, 'fa_IR.UTF-8')
+    date = jdatetime.date.today().strftime("%A, %d %B")
     Lists = TodoList.objects.filter(owner=request.user)
     context = {
         'Lists': Lists,
+        'date': date,
     }
     return render(request, 'home.html', context)
 
@@ -127,3 +136,30 @@ def TaskUpdateView(request, pk):
             'current_task': current_task
         }
         return render(request, 'task_update.html', context)
+    
+#task - delete
+@login_required(login_url='login')
+def TaskDeleteView(request, pk):
+    if request.method == "POST":
+        
+        current_task = get_object_or_404(TodoItem, pk=pk)
+        current_task.delete()
+        return redirect('/')
+    else:
+        Lists = TodoList.objects.filter(owner=request.user)
+        current_task = get_object_or_404(TodoItem, pk=pk)
+        context = {
+            'Lists': Lists,
+            'current_task': current_task
+        }
+        return render(request, 'task_delete.html', context)
+
+
+def TaskCompleteView(request, task_id, complete):
+    task = get_object_or_404(TodoItem, pk=task_id)
+    if complete == 'true':
+        task.completed = True
+    if complete == 'false':
+        task.completed = False
+    task.save()
+    return JsonResponse({'status': 'success', 'message': 'Task updated successfully.'})
