@@ -13,7 +13,7 @@
 
         <tr>
           <td>
-            <div class="text-xl lg:text-2xl font-black">
+            <div class="persian-digit text-xl lg:text-2xl font-black">
               <i class="fa-solid fa-bars text-primary ml-2"></i>
               {{current_list.name }}
             </div>
@@ -21,12 +21,12 @@
           <th class="text-end">
             <a
               href="{% url 'list_update' current_list.pk %}?next={{ request.path }}"
-              class="btn btn-square btn-ghost text-base lg:text-lg opacity-50"
+              class="btn btn-sm btn-square btn-ghost text-base lg:text-lg opacity-50"
               ><i class="fa-solid fa-pen-to-square"></i
             ></a>
             <a
               href="{% url 'list_delete' current_list.pk %}"
-              class="btn btn-square btn-ghost text-base lg:text-lg opacity-50"
+              class="btn btn-sm btn-square btn-ghost text-base lg:text-lg opacity-50"
               ><i class="fa-solid fa-trash-can"></i
             ></a>
           </th>
@@ -37,7 +37,7 @@
 
   <div class="divider"></div>
   <div class="overflow-x-auto">
-    <table class="table-compact w-full">
+    <table class="table-compact lg:table w-full">
       <tbody>
         <!-- row 1 -->
         {% for task in Tasks %}
@@ -49,11 +49,23 @@
               value="{{ task.pk }}" {% if task.completed %}checked{% endif %} class="checkbox checkbox-primary ml-4"
             />
           </th>
-          <td class="text-start lg:text-base"><a class="block" href="{% url 'task_update' task.pk %}?next={{ request.path }}"><span class="font-bold text-base">{{ task.name }}</span>{% if task.description %}</br><span class="text-xs opacity-50">{{ task.description|slice:":40" }}...</span>{% endif %}</a></td>
+          <td class="text-start lg:text-base"><a class="block" href="{% url 'task_update' task.pk %}?next={{ request.path }}"><span class="persian-digit font-bold text-base">{{ task.name }}</span>{% if task.description %}</br><span class="persian-digit text-xs opacity-50">{{ task.description|slice:":40" }}...</span>{% endif %}</a></td>
           <th class="text-end">
+            {% if task.due_date != "null" %}
+            {% if task.due_date == 1 %}
             <div class="flex-none lg:text-base text-primary font-semibold">
-              2 روز
+              فردا
             </div>
+            {% elif task.due_date == 0 %}
+            <div class="flex-none lg:text-base text-primary font-semibold">
+              امروز
+            </div>
+            {% else %}
+            <div class="persian-digit flex-none lg:text-base text-primary font-semibold">
+              {{ task.due_date }} روز
+            </div>
+            {% endif %}
+            {% endif %}
           </th>
         </tr>
         {% empty %}

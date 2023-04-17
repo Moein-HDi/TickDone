@@ -4,20 +4,26 @@ from django.views.decorators.http import require_POST
 from .models import *
 from django.urls import reverse
 from django.http import JsonResponse
-import locale
-import jdatetime
+import jdatetime, locale, datetime
 
 
 # Homepage
 @login_required(login_url='login')
 def HomePageView(request):
     
-    locale.setlocale(locale.LC_ALL, 'fa_IR.UTF-8')
-    date = jdatetime.date.today().strftime("%A, %d %B")
+    
+    date = jdatetime.date.today().strftime("%Y/%m/%d")
+    today = jdatetime.date.today()
+    today_date = datetime.date(today.year, today.month, today.day)
+
     Lists = TodoList.objects.filter(owner=request.user)
+
+    
+    Tasks = TodoItem.objects.filter(due_date=today_date, todo_list__in=Lists)
     context = {
         'Lists': Lists,
         'date': date,
+        'Tasks': Tasks,
     }
     return render(request, 'home.html', context)
 
@@ -43,7 +49,14 @@ def ListDetailView(request, pk):
 
     current_list = get_object_or_404(TodoList, pk=pk)
     Tasks = TodoItem.objects.filter(todo_list=current_list)
-    
+    for task in Tasks:
+        if task.due_date:
+            today = jdatetime.date.today()
+            due = jdatetime.date(task.due_date.year, task.due_date.month, task.due_date.day)
+            days = due - today
+            task.due_date = days.days
+        else:
+            task.due_date = "null"
     context = {
         'Lists': Lists,
         'current_list': current_list,

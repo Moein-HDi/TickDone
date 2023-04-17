@@ -77,7 +77,7 @@
     <script>
       $('input[name^="task"]').each(function () {
         const checkbox = $(this);
-        const td = checkbox.closest("tr").find("td"); // get the corresponding <td> element
+        const td = checkbox.closest("tr").find("span"); // get the corresponding <td> element
 
         $(document).ready(function () {
           if (checkbox.is(":checked")) {
@@ -145,6 +145,16 @@
               }).showToast();
             });
         });
+      });
+    </script>
+    <!-- persian numbers -->
+    <script>
+      persian = { 0: '۰', 1: '۱', 2: '۲', 3: '۳', 4: '۴', 5: '۵', 6: '۶', 7: '۷', 8: '۸', 9: '۹' };
+      $(".persian-digit").each(function () {
+        for (var i = 0; i <= 9; i++) {
+          var re = new RegExp(i, "g");
+          $(this).html($(this).html().replace(re, persian[i]));
+        }
       });
     </script>
   </body>

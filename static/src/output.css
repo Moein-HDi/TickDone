@@ -2291,6 +2291,22 @@ html {
   border-top-width: 4px;
 }
 
+.btn-xs {
+  height: 1.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  min-height: 1.5rem;
+  font-size: 0.75rem;
+}
+
+.btn-sm {
+  height: 2rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  min-height: 2rem;
+  font-size: 0.875rem;
+}
+
 .btn-lg {
   height: 4rem;
   padding-left: 1.5rem;
@@ -2928,10 +2944,74 @@ jdp-container .holly-day {
 }
 
 @media (min-width: 1024px) {
+  .lg\:table {
+    position: relative;
+    text-align: right;
+  }
+
+  .lg\:table th:first-child {
+    position: sticky;
+    position: -webkit-sticky;
+    right: 0px;
+    z-index: 11;
+  }
+
   .lg\:btn-lg
     .btn.loading:before {
     height: 1.25rem;
     width: 1.25rem;
+  }
+
+  .lg\:table :where(th, td) {
+    white-space: nowrap;
+    padding: 1rem;
+    vertical-align: middle;
+  }
+
+  .lg\:table tr.active th,.lg\:table tr.active td,.lg\:table tr.active:nth-child(even) th,.lg\:table tr.active:nth-child(even) td {
+    --tw-bg-opacity: 1;
+    background-color: hsl(var(--b3, var(--b2)) / var(--tw-bg-opacity));
+  }
+
+  .lg\:table tr.hover:hover th,.lg\:table tr.hover:hover td,.lg\:table tr.hover:nth-child(even):hover th,.lg\:table tr.hover:nth-child(even):hover td {
+    --tw-bg-opacity: 1;
+    background-color: hsl(var(--b3, var(--b2)) / var(--tw-bg-opacity));
+  }
+
+  .lg\:table:where(:not(.table-zebra)) :where(thead, tbody, tfoot) :where(tr:not(:last-child) :where(th, td)) {
+    border-bottom-width: 1px;
+    --tw-border-opacity: 1;
+    border-color: hsl(var(--b2, var(--b1)) / var(--tw-border-opacity));
+  }
+
+  .lg\:table :where(thead, tfoot) :where(th, td) {
+    --tw-bg-opacity: 1;
+    background-color: hsl(var(--b2, var(--b1)) / var(--tw-bg-opacity));
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .lg\:table :where(tbody th, tbody td) {
+    --tw-bg-opacity: 1;
+    background-color: hsl(var(--b1) / var(--tw-bg-opacity));
+  }
+
+  :where(.lg\:table *:first-child) :where(*:first-child) :where(th, td):first-child {
+    border-top-right-radius: 0.5rem;
+  }
+
+  :where(.lg\:table *:first-child) :where(*:first-child) :where(th, td):last-child {
+    border-top-left-radius: 0.5rem;
+  }
+
+  :where(.lg\:table *:last-child) :where(*:last-child) :where(th, td):first-child {
+    border-bottom-right-radius: 0.5rem;
+  }
+
+  :where(.lg\:table *:last-child) :where(*:last-child) :where(th, td):last-child {
+    border-bottom-left-radius: 0.5rem;
   }
 
   .lg\:btn-lg {
@@ -2953,6 +3033,12 @@ jdp-container .holly-day {
     width: 4rem;
     border-radius: 9999px;
     padding: 0px;
+  }
+
+  .lg\:table-compact :where(th, td) {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 
   .lg\:first-letter\:btn-lg
@@ -3000,6 +3086,10 @@ jdp-container .holly-day {
 
   .lg\:m-10 {
     margin: 2.5rem;
+  }
+
+  .lg\:table {
+    display: table;
   }
 
   .lg\:hidden {
