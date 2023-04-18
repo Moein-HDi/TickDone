@@ -24,7 +24,7 @@ class TodoItem(models.Model):
     def __str__(self):
         return self.name
 
-class ClassItem(models.model):
+class ClassItem(models.Model):
     name = models.CharField(max_length=100)
     time_start = models.TimeField()
     time_end = models.TimeField()

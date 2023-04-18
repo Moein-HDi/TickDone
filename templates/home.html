@@ -24,7 +24,7 @@
         </th>
         <td class="text-start lg:text-base"><a class="block" href="{% url 'task_update' task.pk %}?next={{ request.path }}"><span class="persian-digit font-bold text-base">{{ task.name }}</span>{% if task.description %}</br><span class="persian-digit text-xs opacity-50">{{ task.description|slice:":40" }}...</span>{% endif %}</a></td>
         <th class="text-end">
-          <div class="flex-none lg:text-base text-primary font-semibold">
+          <div class="flex-none text-xs lg:text-sm text-primary font-semibold">
             {{ task.todo_list.name }}
           </div>
         </th>
