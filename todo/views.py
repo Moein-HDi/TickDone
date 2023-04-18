@@ -11,8 +11,13 @@ import jdatetime, locale, datetime
 @login_required(login_url='login')
 def HomePageView(request):
     
-    
-    date = jdatetime.date.today().strftime("%Y/%m/%d")
+    if datetime.datetime.now().hour >= 0 and datetime.datetime.now().hour <= 12:
+        greeting = 'صبح بخیر🌅'
+    elif datetime.datetime.now().hour > 12 and datetime.datetime.now().hour <= 18:
+        greeting = 'عصر بخیر☕'
+    elif datetime.datetime.now().hour > 18 and datetime.datetime.now().hour < 24:
+        greeting = 'شب بخیر🌙'
+    date = jdatetime.date.today().strftime("%A %d %B %Y")
     today = jdatetime.date.today()
     today_date = datetime.date(today.year, today.month, today.day)
 
@@ -24,6 +29,7 @@ def HomePageView(request):
         'Lists': Lists,
         'date': date,
         'Tasks': Tasks,
+        'greeting': greeting,
     }
     return render(request, 'home.html', context)
 
@@ -167,7 +173,8 @@ def TaskDeleteView(request, pk):
         }
         return render(request, 'task_delete.html', context)
 
-
+# task - complete
+@login_required(login_url='login')
 def TaskCompleteView(request, task_id, complete):
     task = get_object_or_404(TodoItem, pk=task_id)
     if complete == 'true':
@@ -176,3 +183,24 @@ def TaskCompleteView(request, task_id, complete):
         task.completed = False
     task.save()
     return JsonResponse({'status': 'success', 'message': 'Task updated successfully.'})
+
+
+# task - all
+@login_required(login_url='login')
+def TaskAllView(request):
+    Lists = TodoList.objects.filter(owner=request.user)
+    Tasks = TodoItem.objects.filter(todo_list__in=Lists)
+
+    for task in Tasks:
+        if task.due_date:
+            today = jdatetime.date.today()
+            due = jdatetime.date(task.due_date.year, task.due_date.month, task.due_date.day)
+            days = due - today
+            task.due_date = days.days
+        else:
+            task.due_date = "null"
+    context = {
+        'Lists': Lists,
+        'Tasks': Tasks,
+    }
+    return render(request, 'task_all.html', context)

@@ -157,5 +157,29 @@
         }
       });
     </script>
+    <!-- persian month and days -->
+    <script>
+      $(".persian-word").each(function () {
+        $(this).html($(this).html().replace('Saturday', 'شنبه'));
+        $(this).html($(this).html().replace('Sunday', 'یکشنبه'));
+        $(this).html($(this).html().replace('Monday', 'دوشنبه'));
+        $(this).html($(this).html().replace('Tuesday', 'سه شنبه'));
+        $(this).html($(this).html().replace('Wednesday', 'چهارشنبه'));
+        $(this).html($(this).html().replace('Thursday', 'پنجشنبه'));
+        $(this).html($(this).html().replace('Friday', 'جمعه'));
+        $(this).html($(this).html().replace('Farvardin', 'فروردین'));
+        $(this).html($(this).html().replace('Ordibehesht', 'اردیبهشت'));
+        $(this).html($(this).html().replace('Khordad', 'خرداد'));
+        $(this).html($(this).html().replace('Tir', 'تیر'));
+        $(this).html($(this).html().replace('Mordad', 'مرداد'));
+        $(this).html($(this).html().replace('Shahrivar', 'شهریور'));
+        $(this).html($(this).html().replace('Mehr', 'مهر'));
+        $(this).html($(this).html().replace('Aban', 'آبان'));
+        $(this).html($(this).html().replace('Azar', 'آذر'));
+        $(this).html($(this).html().replace('Dey', 'دی'));
+        $(this).html($(this).html().replace('Bahman', 'بهمن'));
+        $(this).html($(this).html().replace('Esfand', 'اسفند'));
+      });
+    </script>
   </body>
 </html>

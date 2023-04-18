@@ -2291,14 +2291,6 @@ html {
   border-top-width: 4px;
 }
 
-.btn-xs {
-  height: 1.5rem;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  min-height: 1.5rem;
-  font-size: 0.75rem;
-}
-
 .btn-sm {
   height: 2rem;
   padding-left: 0.75rem;
@@ -2470,34 +2462,6 @@ html {
   position: sticky;
 }
 
-.bottom-10 {
-  bottom: 2.5rem;
-}
-
-.left-10 {
-  left: 2.5rem;
-}
-
-.top-0 {
-  top: 0px;
-}
-
-.bottom-5 {
-  bottom: 1.25rem;
-}
-
-.left-5 {
-  left: 1.25rem;
-}
-
-.bottom-2 {
-  bottom: 0.5rem;
-}
-
-.left-2 {
-  left: 0.5rem;
-}
-
 .bottom-7 {
   bottom: 1.75rem;
 }
@@ -2506,12 +2470,8 @@ html {
   left: 1.75rem;
 }
 
-.bottom-6 {
-  bottom: 1.5rem;
-}
-
-.left-6 {
-  left: 1.5rem;
+.top-0 {
+  top: 0px;
 }
 
 .z-50 {
@@ -2545,6 +2505,14 @@ html {
 
 .mt-6 {
   margin-top: 1.5rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
+.mb-1 {
+  margin-bottom: 0.25rem;
 }
 
 .block {
@@ -2734,6 +2702,11 @@ html {
   line-height: 1rem;
 }
 
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
 .font-black {
   font-weight: 900;
 }
@@ -2781,24 +2754,12 @@ html {
   --tw-text-opacity: 0.5;
 }
 
-.line-through {
-  text-decoration-line: line-through;
-}
-
 .opacity-20 {
   opacity: 0.2;
 }
 
 .opacity-50 {
   opacity: 0.5;
-}
-
-.opacity-30 {
-  opacity: 0.3;
-}
-
-.opacity-40 {
-  opacity: 0.4;
 }
 
 .shadow {
@@ -2956,12 +2917,6 @@ jdp-container .holly-day {
     z-index: 11;
   }
 
-  .lg\:btn-lg
-    .btn.loading:before {
-    height: 1.25rem;
-    width: 1.25rem;
-  }
-
   .lg\:table :where(th, td) {
     white-space: nowrap;
     padding: 1rem;
@@ -3014,76 +2969,6 @@ jdp-container .holly-day {
     border-bottom-left-radius: 0.5rem;
   }
 
-  .lg\:btn-lg {
-    height: 4rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    min-height: 4rem;
-    font-size: 1.125rem;
-  }
-
-  .btn-square:where(.lg\:btn-lg) {
-    height: 4rem;
-    width: 4rem;
-    padding: 0px;
-  }
-
-  .btn-circle:where(.lg\:btn-lg) {
-    height: 4rem;
-    width: 4rem;
-    border-radius: 9999px;
-    padding: 0px;
-  }
-
-  .lg\:table-compact :where(th, td) {
-    padding: 0.5rem;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-  }
-
-  .lg\:first-letter\:btn-lg
-    .btn.loading::first-letter:before {
-    height: 1.25rem;
-    width: 1.25rem;
-  }
-
-  .lg\:first-letter\:btn-lg::first-letter {
-    height: 4rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    min-height: 4rem;
-    font-size: 1.125rem;
-  }
-
-  .btn-square:where(.lg\:first-letter\:btn-lg)::first-letter {
-    height: 4rem;
-    width: 4rem;
-    padding: 0px;
-  }
-
-  .btn-circle:where(.lg\:first-letter\:btn-lg)::first-letter {
-    height: 4rem;
-    width: 4rem;
-    border-radius: 9999px;
-    padding: 0px;
-  }
-
-  .lg\:bottom-5 {
-    bottom: 1.25rem;
-  }
-
-  .lg\:left-5 {
-    left: 1.25rem;
-  }
-
-  .lg\:bottom-10 {
-    bottom: 2.5rem;
-  }
-
-  .lg\:left-10 {
-    left: 2.5rem;
-  }
-
   .lg\:m-10 {
     margin: 2.5rem;
   }
@@ -3109,10 +2994,5 @@ jdp-container .holly-day {
   .lg\:text-lg {
     font-size: 1.125rem;
     line-height: 1.75rem;
-  }
-
-  .lg\:text-3xl {
-    font-size: 1.875rem;
-    line-height: 2.25rem;
   }
 }

@@ -1,0 +1,55 @@
+{% extends 'navs.html' %} {% block content %}
+<div>
+  <!-- <div class="absolute z-50 bottom-7 left-7 h-16 w-16">
+    <a href="" class="btn btn-circle btn-lg btn-primary shadow">
+      <i class="fa-solid fa-plus text-3xl"></i>
+    </a>
+  </div> -->
+
+  <div class="text-xl lg:text-2xl font-black mb-3"><i class="fa-solid fa-list-check text-primary ml-2"></i> کار های شما</div>
+
+  <div class="divider"></div>
+  <div class="overflow-x-auto">
+    <table class="table-compact lg:table w-full">
+      <tbody>
+        <!-- row 1 -->
+        {% for task in Tasks %}
+        <tr>
+          <th class="w-1">
+            <input
+              type="checkbox"
+              name="task"
+              value="{{ task.pk }}" {% if task.completed %}checked{% endif %} class="checkbox checkbox-primary ml-4"
+            />
+          </th>
+          <td class="text-start lg:text-base"><a class="block" href="{% url 'task_update' task.pk %}?next={{ request.path }}"><span class="persian-digit font-bold text-base">{{ task.name }}</span>{% if task.description %}</br><span class="persian-digit text-xs opacity-50">{{ task.description|slice:":40" }}...</span>{% endif %}</br><span class="persian-digit text-xs text-primary"><i class="fa-solid fa-bars"></i> {{ task.todo_list.name }}</span></a></td>
+          <th class="text-end">
+            {% if task.due_date != "null" %}
+            {% if task.due_date == 1 %}
+            <div class="flex-none lg:text-base text-primary font-semibold">
+              فردا
+            </div>
+            {% elif task.due_date == 0 %}
+            <div class="flex-none lg:text-base text-primary font-semibold">
+              امروز
+            </div>
+            {% else %}
+            <div class="persian-digit flex-none lg:text-base text-primary font-semibold">
+              {{ task.due_date }} روز
+            </div>
+            {% endif %}
+            {% endif %}
+          </th>
+        </tr>
+        {% empty %}
+        <div
+          class="mb-3 p-5 text-center justify-center text-lg font-semibold opacity-20"
+        >
+          هیچ کاری توی این لیست وجود نداره</br>(°ー°〃)
+        </div>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}

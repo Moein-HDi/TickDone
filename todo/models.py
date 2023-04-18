@@ -23,3 +23,14 @@ class TodoItem(models.Model):
 
     def __str__(self):
         return self.name
+
+class ClassItem(models.model):
+    name = models.CharField(max_length=100)
+    time_start = models.TimeField()
+    time_end = models.TimeField()
+    location = models.CharField(max_length=100)
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+
+    def __str__(self):
+        return self.name
