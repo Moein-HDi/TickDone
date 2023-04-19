@@ -20,27 +20,45 @@ def HomePageView(request):
     date = jdatetime.date.today().strftime("%A %d %B %Y")
     today = jdatetime.date.today()
     today_date = datetime.date(today.year, today.month, today.day)
-
+    today_weekday = jdatetime.date.today().strftime("%A")
     Lists = TodoList.objects.filter(owner=request.user)
 
-    
+    Classes = ClassItem.objects.filter(owner=request.user, weekday=today_weekday)
     Tasks = TodoItem.objects.filter(due_date=today_date, todo_list__in=Lists)
+    
     context = {
         'Lists': Lists,
         'date': date,
         'Tasks': Tasks,
+        'Classes': Classes,
         'greeting': greeting,
     }
     return render(request, 'home.html', context)
+
+# settings
+@login_required(login_url='login')
+def SettingsView(request):
+    Lists = TodoList.objects.filter(owner=request.user)
+    context = {
+        'Lists': Lists,
+    }
+    return render(request, 'settings.html', context)
 
 # list - new
 @login_required(login_url='login')
 def ListCreateView(request):
     if request.method == "POST":
-        name = request.POST.get('name')
-        newlist = TodoList.objects.create(name=name, owner=request.user)
-        newlist.save()
-        return redirect('/')
+        if TodoList.objects.filter(owner=request.user).count() < 10:
+            name = request.POST.get('name')
+            newlist = TodoList.objects.create(name=name, owner=request.user)
+            newlist.save()
+            return redirect('/')
+        else:
+            Lists = TodoList.objects.filter(owner=request.user)
+            context = {
+                'Lists': Lists,
+            }
+            return render(request, 'list_new_error.html', context)
     else:
         Lists = TodoList.objects.filter(owner=request.user)
         context = {
@@ -55,6 +73,7 @@ def ListDetailView(request, pk):
 
     current_list = get_object_or_404(TodoList, pk=pk)
     Tasks = TodoItem.objects.filter(todo_list=current_list)
+    Tasks = Tasks.order_by('due_date')
     for task in Tasks:
         if task.due_date:
             today = jdatetime.date.today()
@@ -190,7 +209,7 @@ def TaskCompleteView(request, task_id, complete):
 def TaskAllView(request):
     Lists = TodoList.objects.filter(owner=request.user)
     Tasks = TodoItem.objects.filter(todo_list__in=Lists)
-
+    Tasks = Tasks.order_by('due_date')
     for task in Tasks:
         if task.due_date:
             today = jdatetime.date.today()
@@ -199,8 +218,102 @@ def TaskAllView(request):
             task.due_date = days.days
         else:
             task.due_date = "null"
+    
     context = {
         'Lists': Lists,
         'Tasks': Tasks,
     }
     return render(request, 'task_all.html', context)
+
+# class - new
+@login_required(login_url='login')
+def ClassCreateView(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        time_start = request.POST.get('time_start')
+        time_end = request.POST.get('time_end')
+        weekday = request.POST.get('weekday')
+        location = request.POST.get('location')
+        newClass = ClassItem.objects.create(name=name, time_start=time_start, time_end=time_end, weekday=weekday, location=location, owner=request.user)
+        newClass.save()
+        return redirect('/')
+    else:
+        Lists = TodoList.objects.filter(owner=request.user)
+        context = {
+            'Lists': Lists,
+        }
+    return render(request, 'class_new.html', context)
+
+# class - all
+@login_required(login_url='login')
+def ClassAllView(request):
+
+    Lists = TodoList.objects.filter(owner=request.user)
+    Classes = ClassItem.objects.filter(owner=request.user)
+    Classes = Classes.order_by('time_start')
+    AllWeekdays = [
+        'Saturday',
+        'Sunday',
+        'Monday',
+        'Tuesday',
+        'Wednesday',
+        'Thursday',
+        'Friday'
+    ]
+    weekdays = [classitem.weekday for classitem in Classes]
+    AllWeekdays = [weekday for weekday in AllWeekdays if weekday in weekdays]
+               
+    
+    context = {
+        'Lists': Lists,
+        'Classes': Classes,
+        'Weekdays': AllWeekdays,
+    }
+    return render(request, 'class_all.html', context)
+
+# class - update
+@login_required(login_url='login')
+def ClassUpdateView(request, pk):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        time_start = request.POST.get('time_start')
+        time_end = request.POST.get('time_end')
+        weekday = request.POST.get('weekday')
+        location = request.POST.get('location')
+
+
+        current_class = get_object_or_404(ClassItem, pk=pk)
+        current_class.name = name
+        current_class.time_end = time_end
+        current_class.time_start = time_start
+        current_class.weekday = weekday
+        current_class.location = location
+
+        current_class.save()
+        next = request.GET.get('next', reverse('home'))
+        return HttpResponseRedirect(next)
+    else:
+        Lists = TodoList.objects.filter(owner=request.user)
+        current_class = get_object_or_404(ClassItem, pk=pk)
+        context = {
+            'Lists': Lists,
+            'current_class': current_class
+        }
+        return render(request, 'class_update.html', context)
+    
+#task - delete
+@login_required(login_url='login')
+def ClassDeleteView(request, pk):
+    if request.method == "POST":
+        
+        current_class = get_object_or_404(ClassItem, pk=pk)
+        current_class.delete()
+        return redirect('/')
+    else:
+        Lists = TodoList.objects.filter(owner=request.user)
+        current_class = get_object_or_404(ClassItem, pk=pk)
+        context = {
+            'Lists': Lists,
+            'current_class': current_class
+        }
+        return render(request, 'class_delete.html', context)

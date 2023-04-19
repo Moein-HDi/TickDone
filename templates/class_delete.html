@@ -1,0 +1,17 @@
+{% extends 'navs.html' %}
+{% block content %}
+
+      
+          <div class="text-xl lg:text-2xl font-black text-center text-primary">حذف کلاس</div>
+          <div class="divider"></div>
+          <form method="post">
+            {% csrf_token %}
+            آیا از حذف کلاس <span class="persian-digit text-primary font-semibold">"{{ current_class.name }}"</span> مطمئن هستید؟
+
+            <div class="form-control mt-6">
+              <button type="submit" value="Confirm" class="btn btn-error">بله مطمئنم، حذف شود</button>
+            </div>
+          </form>
+        
+  
+  {% endblock content %}

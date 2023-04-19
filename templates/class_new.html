@@ -1,0 +1,92 @@
+{% extends 'navs.html' %} {% block content %}
+
+<div class="text-xl lg:text-2xl font-black text-primary text-center">
+  کلاس جدید
+</div>
+<div class="divider"></div>
+<form method="post">
+  {% csrf_token %}
+
+  <div class="form-control">
+    <label class="label" for="id_name">
+      <span class="label-text">عنوان کلاس:</span>
+    </label>
+    <input
+      type="text"
+      class="input input-bordered"
+      name="name"
+      autofocus
+      maxlength="25"
+      required
+      id="id_name"
+    />
+  </div>
+
+  <div class="form-control">
+    <label class="label" for="id_weekday">
+      <span class="label-text">روز هفته:</span>
+    </label>
+    <select
+      class="select select-bordered"
+      name="weekday"
+      id="id_weekday"
+      required
+    >
+      <option value="Saturday">شنبه</option>
+      <option value="Sunday">یکشنبه</option>
+      <option value="Monday">دوشنبه</option>
+      <option value="Tuesday">سه شنبه</option>
+      <option value="Wednesday">چهارشنبه</option>
+      <option value="Thursday">پنجشنبه</option>
+      <option value="Friday">جمعه</option>
+    </select>
+  </div>
+  <div class="flex flex-wrap -mx-2">
+    <div class="mx-2 form-control flex-grow">
+      <label class="label" for="id_time_start">
+        <span class="label-text">ساعت شروع:</span>
+      </label>
+      <input
+        data-jdp
+        data-jdp-only-time
+        class="input input-bordered"
+        name="time_start"
+        required
+        id="id_time_start"
+      />
+    </div>
+
+    <div class="mx-2 form-control flex-grow">
+      <label class="label" for="id_time_end">
+        <span class="label-text">ساعت پایان:</span>
+      </label>
+      <input
+        data-jdp
+        data-jdp-only-time
+        class="input input-bordered"
+        required
+        name="time_end"
+        id="id_time_end"
+      />
+    </div>
+  </div>
+
+  <div class="form-control">
+    <label class="label" for="id_location">
+      <span class="label-text">مکان کلاس:</span>
+    </label>
+    <input
+      type="text"
+      class="input input-bordered"
+      name="location"
+      maxlength="25"
+      id="id_location"
+    />
+  </div>
+
+  <div class="form-control mt-6">
+    <button type="submit" class="btn btn-primary">اضافه کردن کلاس</button>
+  </div>
+</form>
+
+{% endblock content %}

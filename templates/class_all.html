@@ -1,0 +1,51 @@
+{% extends 'navs.html' %}{% load mathfilters %} {% block content %}
+<div class="mb-20">
+  <div class="fixed z-50 bottom-10 left-10 h-16 w-16">
+    <a href="{% url 'class_new' %}?next={{ request.path }}" class="btn btn-circle btn-lg btn-primary shadow">
+      <i class="fa-solid fa-plus text-3xl"></i>
+    </a>
+  </div>
+
+  <div class="text-xl lg:text-2xl font-black mb-3"><i class="fa-solid fa-chalkboard-user text-primary ml-2"></i> کلاس های شما</div>
+
+  <div class="divider"></div>
+  
+  
+        <!-- row 1 -->
+        {% for weekday in Weekdays %}
+            <div class="persian-word text-primary text-base lg:text-lg font-bold my-5">{{ weekday }}</div>
+            <div class="overflow-x-auto">
+                <table class="table-compact lg:table w-full">
+                  <tbody>    
+            {% for class in Classes %}
+            
+                    {% if class.weekday == weekday %}
+                
+                        <tr>
+                        
+                        <td class="text-start lg:text-base"><a class="block" href="{% url 'class_update' class.pk %}"><span class="persian-digit font-bold text-base">{{ class.name }}</span>{% if class.location %}</br><span class="persian-digit text-primary text-xs"><i class="fa-solid fa-location-dot"></i> {{ class.location }}</span>{% endif %}</a></td>
+                        <th class="text-start">
+                            <div dir="ltr" class="persian-digit flex-none lg:text-base text-primary font-semibold">
+                            {{ class.time_start|date:"H:i" }} → {{ class.time_end|date:"H:i" }}
+                            </div>
+                        </th>
+                        </tr>
+                        
+                
+                    {% endif %}
+                    
+                      {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="divider lg:hidden"></div>
+        {% empty %}
+        <div
+          class="mb-3 p-5 text-center justify-center text-lg font-semibold opacity-20"
+        >
+          هیچ کلاسی توی این لیست وجود نداره</br>(°ー°〃)
+        </div>
+        {% endfor %}
+      
+</div>
+{% endblock content %}

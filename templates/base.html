@@ -65,6 +65,7 @@
     <!-- date picker -->
     <script>
       jalaliDatepicker.startWatch({
+        hasSecond: "False",
         minDate: "attr",
         persianDigits: "True",
         autoReadOnlyInput: "True",
@@ -81,18 +82,18 @@
 
         $(document).ready(function () {
           if (checkbox.is(":checked")) {
-            
+            td.addClass("line-through");
             td.addClass("italic");
             td.addClass("opacity-50");
           }
         });
         checkbox.change(function () {
           if (checkbox.is(":checked")) {
-            
+            td.addClass("line-through");
             td.addClass("italic");
             td.addClass("opacity-50");
           } else {
-            
+            td.removeClass("line-through");
             td.removeClass("italic");
             td.removeClass("opacity-50");
           }

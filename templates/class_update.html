@@ -1,0 +1,117 @@
+{% extends 'navs.html' %} {% block content %}
+
+<div class="overflow-x-auto">
+    <table class="table-compact w-full">
+      <tbody>
+        <!-- row 1 -->
+
+        <tr>
+          <td>
+            <div class="persian-digit text-primary text-xl lg:text-2xl font-black">
+              {{ current_class.name }}
+            </div>
+          </td>
+          <th class="text-end">
+            <a
+              href="{% url 'class_delete' current_class.pk %}"
+              class="btn btn-square btn-sm btn-ghost text-base lg:text-lg opacity-50"
+              ><i class="fa-solid fa-trash-can"></i
+            ></a>
+          </th>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+    <div class="divider"></div>
+<form method="post">
+  {% csrf_token %}
+
+  <div class="form-control">
+    <label class="label" for="id_name">
+      <span class="label-text text-opacity-50">عنوان کلاس:</span>
+    </label>
+    <input
+      type="text"
+      class="input input-ghost"
+      name="name"
+      value="{{ current_class.name }}"
+      
+      maxlength="25"
+      required
+      id="id_name"
+    />
+  </div>
+
+  <div class="form-control">
+    <label class="label" for="id_weekday">
+      <span class="label-text text-opacity-50">روز هفته:</span>
+    </label>
+    <select
+      class="select select-ghost"
+      name="weekday"
+      
+      id="id_weekday"
+      required
+    >
+      <option value="Saturday" {% if current_class.weekday == 'Saturday' %}Selected{% endif %}>شنبه</option>
+      <option value="Sunday" {% if current_class.weekday == 'Sunday' %}Selected{% endif %}>یکشنبه</option>
+      <option value="Monday" {% if current_class.weekday == 'Monday' %}Selected{% endif %}>دوشنبه</option>
+      <option value="Tuesday" {% if current_class.weekday == 'Tuesday' %}Selected{% endif %}>سه شنبه</option>
+      <option value="Wednesday" {% if current_class.weekday == 'Wednesday' %}Selected{% endif %}>چهارشنبه</option>
+      <option value="Thursday" {% if current_class.weekday == 'Thursday' %}Selected{% endif %}>پنجشنبه</option>
+      <option value="Friday" {% if current_class.weekday == 'Friday' %}Selected{% endif %}>جمعه</option>
+    </select>
+  </div>
+  <div class="flex flex-wrap -mx-2">
+    <div class="mx-2 form-control flex-grow">
+      <label class="label" for="id_time_start">
+        <span class="label-text text-opacity-50">ساعت شروع:</span>
+      </label>
+      <input
+        data-jdp
+        data-jdp-only-time
+        class="input input-ghost"
+        name="time_start"
+        value="{{current_class.time_start|date:"H:i" }}"
+        required
+        id="id_time_start"
+      />
+    </div>
+
+    <div class="mx-2 form-control flex-grow">
+      <label class="label" for="id_time_end">
+        <span class="label-text text-opacity-50">ساعت پایان:</span>
+      </label>
+      <input
+        data-jdp
+        data-jdp-only-time
+        class="input input-ghost"
+        required
+        name="time_end"
+        value="{{current_class.time_end|date:"H:i" }}"
+        id="id_time_end"
+      />
+    </div>
+  </div>
+
+  <div class="form-control">
+    <label class="label" for="id_location">
+      <span class="label-text text-opacity-50">مکان کلاس:</span>
+    </label>
+    <input
+      type="text"
+      class="input input-ghost"
+      name="location"
+      value="{{current_class.location}}"
+      maxlength="25"
+      id="id_location"
+    />
+  </div>
+
+  <div class="form-control mt-6">
+    <button type="submit" class="btn btn-primary">ویرایش کلاس</button>
+  </div>
+</form>
+
+{% endblock content %}

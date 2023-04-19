@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'todo',
     'accounts',
     #3rd party
+    'mathfilters'
+    
 ]
 
 MIDDLEWARE = [

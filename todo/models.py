@@ -25,10 +25,21 @@ class TodoItem(models.Model):
         return self.name
 
 class ClassItem(models.Model):
+    weekdays = (
+        ('شنبه', 'Saturday'),
+        ('یکشنبه', 'Sunday'),
+        ('دوشنبه', 'Monday'),
+        ('سه شنبه', 'Tuesday'),
+        ('چهارشنبه', 'Wednesday'),
+        ('پنچشنبه', 'Thursday'),
+        ('جمعه', 'Friday'),
+    )
     name = models.CharField(max_length=100)
     time_start = models.TimeField()
     time_end = models.TimeField()
+    weekday = models.CharField(max_length=60, choices=weekdays)
     location = models.CharField(max_length=100)
+    owner = owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
 
