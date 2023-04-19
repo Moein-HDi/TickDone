@@ -49,3 +49,7 @@ jdp-container .jdp-btn-empty, jdp-container .jdp-btn-today, jdp-container .jdp-b
 jdp-container .holly-day {
   @apply text-error !important;
 }
+
+jdp-container .jdp-time {
+  @apply bg-transparent !important;
+}

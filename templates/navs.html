@@ -73,15 +73,20 @@
               سلام {{ user.username }}!
             </li>
             
-            <li>
+            <!-- <li>
               
                 <span class="label cursor-pointer">
                   <span class="font-medium"><i class="fa-solid fa-moon ml-2"></i>حالت تاریک</span> 
                   <input type="checkbox" class="toggle toggle-primary" name="theme" />
                 </span>
               
+            </li> -->
+            <li>
+              <a href="{% url 'settings' %}"
+                ><i class="fa-solid fa-gear"></i> تنظیمات</a
+              >
             </li>
-            
+
             <li>
               <a href="{% url 'logout' %}" class="text-error"
                 ><i class="fa-solid fa-right-from-bracket"></i> خروج از حساب</a

@@ -39,8 +39,10 @@ def HomePageView(request):
 @login_required(login_url='login')
 def SettingsView(request):
     Lists = TodoList.objects.filter(owner=request.user)
+    date_joined = jdatetime.date.fromgregorian(date=request.user.date_joined).strftime("%A %d %B %Y")
     context = {
         'Lists': Lists,
+        'date_joined': date_joined,
     }
     return render(request, 'settings.html', context)
 

@@ -1,0 +1,50 @@
+{% extends 'navs.html' %}
+{% block content %}
+
+      
+          <div class="text-xl lg:text-2xl font-black text-center text-primary">تنظیمات</div>
+          <div class="divider"></div>
+          <div class="-m-2 flex flex-wrap text-lg">
+            <div class="m-2 flex-grow">
+                <table class="table-compact w-full">
+                    <tbody>
+                        <tr>
+                            <td class="text-start">
+                                <span class="font-bold text-primary">نام کاربری: </span>
+                            </td>
+                            <td class="text-end">
+                                <span class="text-end">{{ user.username }}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="m-2 flex-grow">
+                <table class="table-compact w-full">
+                    <tbody>
+                        <tr>
+                            <td class="text-start">
+                                <span class="font-bold text-primary">تاریخ ساخت حساب: </span>
+                            </td>
+                            <td class="text-end">
+                                <div class="persian-word persian-digit text-end">{{ date_joined }}</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+            </div>
+          </div>
+          <div class="divider"></div>
+          <span class="label cursor-pointer">
+            <span class="font-medium"><i class="fa-solid fa-moon ml-2"></i>حالت تاریک</span> 
+            <input type="checkbox" class="toggle toggle-primary" name="theme" />
+          </span>
+          <ul class="menu mt-5 w-full bg-base-100 p-2 rounded-box">
+            <li class="disabled"><a ><i class="fa-solid fa-bug"></i> گزارش خطا</a></li>
+            <li><label for="my-modal-6"><i class="fa-solid fa-circle-dollar-to-slot"></i> حمایت مالی</label></li>
+            <li><label for="my-modal-4"><i class="fa-solid fa-circle-info"></i> درباره من</label></li>
+          </ul>
+        
+          
+  {% endblock content %}

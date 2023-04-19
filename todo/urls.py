@@ -1,8 +1,9 @@
 from django.urls import path
-from .views import HomePageView, ListCreateView, ListDetailView, ListUpdateView, ListDeleteView, TaskCreateView, TaskUpdateView, TaskDeleteView, TaskCompleteView, TaskAllView, ClassCreateView, ClassAllView, ClassUpdateView, ClassDeleteView
+from .views import HomePageView, ListCreateView, ListDetailView, ListUpdateView, ListDeleteView, TaskCreateView, TaskUpdateView, TaskDeleteView, TaskCompleteView, TaskAllView, ClassCreateView, ClassAllView, ClassUpdateView, ClassDeleteView, SettingsView
 
 urlpatterns = [
     path('', HomePageView, name='home'),
+    path('settings', SettingsView, name='settings'),
     path('list/new', ListCreateView, name='list_new'),
     path('list/<uuid:pk>/', ListDetailView, name='list_detail'),
     path('list/<uuid:pk>/update', ListUpdateView, name='list_update'),
