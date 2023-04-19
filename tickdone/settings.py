@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'todo',
     'accounts',
     #3rd party
-    'mathfilters'
+    'mathfilters',
+    'pwa',
     
 ]
 
@@ -137,3 +138,35 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
+
+
+
+PWA_APP_NAME = 'TickDone'
+PWA_APP_DESCRIPTION = "Task management web-app"
+PWA_APP_THEME_COLOR = '#00bf96'
+PWA_APP_BACKGROUND_COLOR = '#242933'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'portrait'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/images/my_app_icon.png',
+        'sizes': '512x512'
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': '/static/images/my_apple_icon.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': '/static/images/icons/splash-640x1136.png',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    }
+]
+PWA_APP_DIR = 'rtl'
+PWA_APP_LANG = 'en-US'
