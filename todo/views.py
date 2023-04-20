@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
 from .models import *
 from django.urls import reverse
 from django.http import JsonResponse
-import jdatetime, locale, datetime
+import jdatetime, datetime
 
 
 # Homepage
@@ -163,7 +162,8 @@ def TaskUpdateView(request, pk):
 
         current_task = get_object_or_404(TodoItem, pk=pk)
         current_task.name = name
-        current_task.due_date = due_date
+        if due_date != '':
+            current_task.due_date = due_date
         current_task.description = description
         current_task.save()
         next = request.GET.get('next', reverse('home'))
