@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django_jalali.db import models as jmodels
 import uuid
 
 
@@ -16,7 +17,7 @@ class TodoItem(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=200, null=True, blank=True)
     completed = models.BooleanField(default=False)
-    due_date = models.DateField(null=True, blank=True)
+    due_date = jmodels.jDateField(null=True, blank=True)
     todo_list = models.ForeignKey(TodoList, on_delete=models.CASCADE)
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

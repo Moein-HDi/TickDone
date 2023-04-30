@@ -1,0 +1,6 @@
+[{
+        "relation": ["delegate_permission/common.handle_all_urls"],
+        "target" : { "namespace": "android_app", "package_name": "com.pythonanywhere.tickdone.twa",
+                     "sha256_cert_fingerprints": ["6E:6E:BF:17:A1:07:FC:70:87:2A:14:7D:39:48:F5:F0:FD:F8:D7:70:85:56:2E:B8:42:A7:6F:2E:07:2A:D4:FF"] }
+      }
+]

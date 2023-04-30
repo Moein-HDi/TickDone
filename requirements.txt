@@ -2,3 +2,4 @@ Django==4.2
 django-pwa==1.1.0
 django-mathfilters==1.0.0
 jdatetime==4.1.1
+django-jalali==6.0.1
