@@ -19,13 +19,30 @@
             <input
               type="checkbox"
               name="task"
-              value="{{ task.pk }}" {% if task.completed %}checked{% endif %} class="checkbox checkbox-primary ml-4"
+              value="{{ task.pk }}"
+              {%
+              if
+              task.completed
+              %}checked{%
+              endif
+              %}
+              class="checkbox checkbox-primary ml-4"
             />
           </th>
-          <td class="text-start lg:text-base"><a class="block" href="{% url 'task_update' task.pk %}?next={{ request.path }}"><span class="persian-digit font-normal text-base">{{ task.name }}</span>{% if task.description %}</br><span class="persian-digit text-xs opacity-50">{{ task.description|truncatechars:50 }}...</span>{% endif %}</br><span class="persian-digit text-xs text-primary"><i class="fa-solid fa-bars"></i> {{ task.todo_list.name }}</span></a></td>
+          <td class="text-start lg:text-base">
+            <a
+              class="block"
+              href="{% url 'task_update' task.pk %}?next={{ request.path }}"
+              ><span class="persian-digit font-normal text-base"
+                >{{ task.name }}</span
+              >{% if task.description %}<br /><span
+                class="persian-digit text-xs opacity-50"
+                >{{ task.description|truncatechars:50 }}...</span
+              >{% endif %}</a
+            >
+          </td>
           <th class="text-end">
-            {% if task.due_date != "null" %}
-            {% if task.due_date == 1 %}
+            {% if task.due_date %} {% if task.due_date == 1 %}
             <div class="flex-none lg:text-base text-primary font-normal">
               فردا
             </div>
@@ -38,26 +55,163 @@
               دیروز
             </div>
             {% elif task.due_date < -1 %}
-            <div class="flex-none persian-digit lg:text-base text-error font-normal">
+            <div
+              class="flex-none persian-digit lg:text-base text-error font-normal"
+            >
               {{ task.due_date|abs }} روز پیش
             </div>
             {% else %}
-            <div class="persian-digit flex-none lg:text-base text-primary font-normal">
+            <div
+              class="persian-digit flex-none lg:text-base text-primary font-normal"
+            >
               {{ task.due_date }} روز
             </div>
-            {% endif %}
-            {% endif %}
+            {% endif %} {% endif %}
           </th>
         </tr>
         {% empty %}
         <div
           class="mb-3 p-5 text-center justify-center text-lg font-semibold opacity-20"
         >
-          هیچ کاری توی این لیست وجود نداره</br>(°ー°〃)
+          هیچ کاری توی این لیست وجود نداره<br />(°ー°〃)
         </div>
+        {% endfor %}
+
+        {% for task in NoDateTasks %}
+        <tr>
+          <th class="w-1">
+            <input
+              type="checkbox"
+              name="task"
+              value="{{ task.pk }}"
+              {%
+              if
+              task.completed
+              %}checked{%
+              endif
+              %}
+              class="checkbox checkbox-primary ml-4"
+            />
+          </th>
+          <td class="text-start lg:text-base">
+            <a
+              class="block"
+              href="{% url 'task_update' task.pk %}?next={{ request.path }}"
+              ><span class="persian-digit font-normal text-base"
+                >{{ task.name }}</span
+              >{% if task.description %}<br /><span
+                class="persian-digit text-xs opacity-50"
+                >{{ task.description|truncatechars:50 }}...</span
+              >{% endif %}</a
+            >
+          </td>
+          <th class="text-end">
+            {% if task.due_date %} {% if task.due_date == 1 %}
+            <div class="flex-none lg:text-base text-primary font-normal">
+              فردا
+            </div>
+            {% elif task.due_date == 0 %}
+            <div class="flex-none lg:text-base text-primary font-normal">
+              امروز
+            </div>
+            {% elif task.due_date == -1 %}
+            <div class="flex-none lg:text-base text-error font-normal">
+              دیروز
+            </div>
+            {% elif task.due_date < -1 %}
+            <div
+              class="flex-none persian-digit lg:text-base text-error font-normal"
+            >
+              {{ task.due_date|abs }} روز پیش
+            </div>
+            {% else %}
+            <div
+              class="persian-digit flex-none lg:text-base text-primary font-normal"
+            >
+              {{ task.due_date }} روز
+            </div>
+            {% endif %} {% endif %}
+          </th>
+        </tr>
         {% endfor %}
       </tbody>
     </table>
+
+    {% if DoneTasks %}
+    <div tabindex="0" class="mt-5 collapse collapse-arrow bg-base-100 rounded-lg">
+      <input type="checkbox" />
+      <div class="collapse-title font-bold opacity-50">
+        انجام شده ها
+      </div>
+      <div class="collapse-content">
+        <table class="table-compact lg:table w-full">
+          <tbody>
+            <!-- row 1 -->
+            {% for task in DoneTasks %}
+            <tr>
+              <th class="w-1">
+                <input
+                  type="checkbox"
+                  name="task"
+                  value="{{ task.pk }}"
+                  {% if task.completed %}checked{% endif %}
+                  class="checkbox checkbox-primary ml-4"
+                />
+              </th>
+              <td class="text-start lg:text-base">
+                <a
+                  class="block"
+                  href="{% url 'task_update' task.pk %}?next={{ request.path }}"
+                  ><span class="persian-digit font-normal text-base"
+                    >{{ task.name }}</span
+                  >{% if task.description %}<br /><span
+                    class="persian-digit text-xs opacity-50"
+                    >{{ task.description|truncatechars:50 }}...</span
+                  >{% endif %}</a
+                >
+              </td>
+              <th class="text-end">
+                {% if task.due_date %} {% if task.due_date == 1 %}
+                <div class="flex-none lg:text-base text-primary font-normal">
+                  فردا
+                </div>
+                {% elif task.due_date == 0 %}
+                <div class="flex-none lg:text-base text-primary font-normal">
+                  امروز
+                </div>
+                {% elif task.due_date == -1 %}
+                <div class="flex-none lg:text-base text-error font-normal">
+                  دیروز
+                </div>
+                {% elif task.due_date < -1 %}
+                <div
+                  class="flex-none persian-digit lg:text-base text-error font-normal"
+                >
+                  {{ task.due_date|abs }} روز پیش
+                </div>
+                {% else %}
+                <div
+                  class="persian-digit flex-none lg:text-base text-primary font-normal"
+                >
+                  {{ task.due_date }} روز
+                </div>
+                {% endif %} {% endif %}
+              </th>
+            </tr>
+            {% empty %}
+            <div
+              class="mb-3 p-5 text-center justify-center text-lg font-semibold opacity-20"
+            >
+              هیچ کاری توی این لیست وجود نداره<br />(°ー°〃)
+            </div>
+            {% endfor %}
+    
+            
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endif %}
   </div>
 </div>
 {% endblock content %}

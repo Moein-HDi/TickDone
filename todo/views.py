@@ -75,18 +75,31 @@ def ListDetailView(request, pk):
     current_list = get_object_or_404(TodoList, pk=pk)
     Tasks = TodoItem.objects.filter(todo_list=current_list)
     Tasks = Tasks.order_by('due_date')
-    for task in Tasks:
+    NotDoneTasks = []
+    DoneTasks = []
+    NoDateTasks = []
+    for task in Tasks:    
         if task.due_date:
             today = jdatetime.date.today()
             due = jdatetime.date(task.due_date.year, task.due_date.month, task.due_date.day)
             days = due - today
             task.due_date = days.days
-        else:
-            task.due_date = "null"
+
+        if task.completed == False and task.due_date:
+            NotDoneTasks.append(task)
+        if task.completed == True:
+            DoneTasks.append(task)
+        if task.completed == False and not task.due_date:
+            # task.due_date = "null"
+            NoDateTasks.append(task)
+            
+            
     context = {
         'Lists': Lists,
         'current_list': current_list,
-        'Tasks': Tasks,
+        'Tasks': NotDoneTasks,
+        'DoneTasks': DoneTasks,
+        'NoDateTasks': NoDateTasks
     }
     return render(request, 'list_detail.html', context)
 
@@ -212,18 +225,30 @@ def TaskAllView(request):
     Lists = TodoList.objects.filter(owner=request.user)
     Tasks = TodoItem.objects.filter(todo_list__in=Lists)
     Tasks = Tasks.order_by('due_date')
-    for task in Tasks:
+    NotDoneTasks = []
+    DoneTasks = []
+    NoDateTasks = []
+    for task in Tasks:    
         if task.due_date:
             today = jdatetime.date.today()
             due = jdatetime.date(task.due_date.year, task.due_date.month, task.due_date.day)
             days = due - today
             task.due_date = days.days
-        else:
-            task.due_date = "null"
-    
+
+        if task.completed == False and task.due_date:
+            NotDoneTasks.append(task)
+        if task.completed == True:
+            DoneTasks.append(task)
+        if task.completed == False and not task.due_date:
+            # task.due_date = "null"
+            NoDateTasks.append(task)
+            
+            
     context = {
         'Lists': Lists,
-        'Tasks': Tasks,
+        'Tasks': NotDoneTasks,
+        'DoneTasks': DoneTasks,
+        'NoDateTasks': NoDateTasks
     }
     return render(request, 'task_all.html', context)
 
