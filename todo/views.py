@@ -18,12 +18,12 @@ def HomePageView(request):
         greeting = 'شب بخیر🌙'
     date = jdatetime.date.today().strftime("%A %d %B %Y")
     today = jdatetime.date.today()
-    today_date = datetime.date(today.year, today.month, today.day)
+    tomorrow_date = today + jdatetime.timedelta(days=1)
     today_weekday = jdatetime.date.today().strftime("%A")
     Lists = TodoList.objects.filter(owner=request.user)
 
     Classes = ClassItem.objects.filter(owner=request.user, weekday=today_weekday)
-    Tasks = TodoItem.objects.filter(due_date=today_date, todo_list__in=Lists)
+    Tasks = TodoItem.objects.filter(due_date=tomorrow_date, todo_list__in=Lists)
     
     context = {
         'Lists': Lists,
