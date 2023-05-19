@@ -63,12 +63,7 @@
             {% endif %} {% endif %}
           </th>
         </tr>
-        {% empty %}
-        <div
-          class="mb-3 p-5 text-center justify-center text-lg font-semibold opacity-20"
-        >
-          هیچ کاری توی این لیست وجود نداره<br />(°ー°〃)
-        </div>
+        
         {% endfor %}
 
         {% for task in NoDateTasks %}
@@ -159,7 +154,7 @@
                   >{% endif %}<br /><span class="persian-digit text-xs text-primary"><i class="fa-solid fa-bars"></i> {{ task.todo_list.name }}</span></a
                 >
               </td>
-              <th class="text-end">
+              {% comment %} <th class="text-end">
                 {% if task.due_date %} {% if task.due_date == 1 %}
                 <div class="flex-none lg:text-base text-primary font-normal">
                   فردا
@@ -185,14 +180,9 @@
                   {{ task.due_date }} روز
                 </div>
                 {% endif %} {% endif %}
-              </th>
+              </th> {% endcomment %}
             </tr>
-            {% empty %}
-            <div
-              class="mb-3 p-5 text-center justify-center text-lg font-semibold opacity-20"
-            >
-              هیچ کاری توی این لیست وجود نداره<br />(°ー°〃)
-            </div>
+            
             {% endfor %}
     
             
@@ -200,6 +190,13 @@
         </table>
       </div>
     </div>
+    {% endif %}
+    {% if not DoneTasks and not Tasks and not NoDateTasks %}
+        <div
+          class="mb-3 p-5 text-center justify-center text-lg font-semibold opacity-20"
+        >
+          هیچ کاری توی این لیست وجود نداره<br />(°ー°〃)
+        </div>
     {% endif %}
   </div>
 </div>
