@@ -34,14 +34,14 @@
         <div class="text-2xl font-black text-center text-primary">ثبت نام</div>
         <form method="post">
           {% csrf_token %}
-          <span class="text-error">{{ form.non_field_errors }}</span>
+          <div class="text-error text-sm mt-2">{{ form.non_field_errors }}</div>
           <div class="form-control">
             <label class="label" for="id_username">
               <span class="label-text">نام کاربری:</span>
             </label>
             <input
               type="text"
-              class="input input-bordered"
+              class="input input-bordered {% if form.username.errors %}input-error{% endif %}"
               name="username"
               autofocus
               autocapitalize="none"
@@ -50,7 +50,7 @@
               required
               id="id_username"
             />
-            <span class="text-error">{{ form.username.errors }}</span>
+            <span class="text-error text-sm mt-2">{{ form.username.errors }}</span>
           </div>
           <div class="form-control">
             <label class="label" for="id_password1">
@@ -59,13 +59,13 @@
 
             <input
               type="password"
-              class="input input-bordered"
+              class="input input-bordered {% if form.password1.errors %}input-error{% endif %}"
               name="password1"
               autocomplete="new-password"
               required
               id="id_password1"
             />
-            <span class="text-error">{{ form.password1.errors }}</span>
+            <div class="text-error text-sm mt-2">{{ form.password1.errors }}</div>
           </div>
           <div class="form-control">
             <label class="label" for="id_password2">
@@ -74,13 +74,13 @@
 
             <input
               type="password"
-              class="input input-bordered"
+              class="input input-bordered {% if form.password2.errors %}input-error{% endif %}"
               name="password2"
               autocomplete="new-password"
               required
               id="id_password2"
             />
-            <span class="text-error">{{ form.password2.errors }}</span>
+            <div class="text-error text-sm mt-2 persian-digit">{{ form.password2.errors }}</div>
           </div>
           <label class="label">
             قبلا ثبت نام کرده اید؟

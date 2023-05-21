@@ -35,7 +35,7 @@
         <div class="text-2xl font-black text-center text-primary">ورود</div>
         <form method="post">
           {% csrf_token %}
-          <span class="text-error">{{ form.non_field_errors }}</span>
+          <span class="text-error text-sm">{{ form.non_field_errors }}</span>
           <div class="form-control">
             <label class="label" for="id_username">
               <span class="label-text">نام کاربری:</span>
@@ -51,7 +51,7 @@
               required
               id="id_username"
             />
-            <span class="text-error">{{ form.username.errors }}</span>
+            <span class="text-error text-sm mt-2">{{ form.username.errors }}</span>
           </div>
           <div class="form-control">
             <label class="label" for="id_password">
@@ -65,7 +65,7 @@
               required
               id="id_password"
             />
-            <span class="text-error">{{ form.password.errors }}</span>
+            <span class="text-error text-sm mt-2">{{ form.password.errors }}</span>
           </div>
           <label class="label">
             حساب کاربری ندارید؟
