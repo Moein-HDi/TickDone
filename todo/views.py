@@ -10,12 +10,14 @@ import jdatetime, datetime
 @login_required(login_url='login')
 def HomePageView(request):
     
-    if datetime.datetime.now().hour >= 0 and datetime.datetime.now().hour <= 12:
+    if datetime.datetime.now().hour >= 5 and datetime.datetime.now().hour <= 12:
         greeting = 'صبح بخیر🌅'
     elif datetime.datetime.now().hour > 12 and datetime.datetime.now().hour <= 18:
         greeting = 'عصر بخیر☕'
     elif datetime.datetime.now().hour > 18 and datetime.datetime.now().hour < 24:
         greeting = 'شب بخیر🌙'
+    elif datetime.datetime.now().hour >= 0 and datetime.datetime.now().hour < 5:
+        greeting = 'شب بخیر 💤'
     date = jdatetime.date.today().strftime("%A %d %B %Y")
     today = jdatetime.date.today()
     tomorrow_date = today + jdatetime.timedelta(days=1)
@@ -85,11 +87,11 @@ def ListDetailView(request, pk):
             days = due - today
             task.due_date = days.days
 
-        if task.completed == False and task.due_date:
+        if task.completed == False and task.due_date or task.due_date==0:
             NotDoneTasks.append(task)
         if task.completed == True:
             DoneTasks.append(task)
-        if task.completed == False and not task.due_date:
+        if task.completed == False and not task.due_date and task.due_date != 0:
             # task.due_date = "null"
             NoDateTasks.append(task)
             
@@ -328,7 +330,7 @@ def ClassUpdateView(request, pk):
         }
         return render(request, 'class_update.html', context)
     
-#task - delete
+#class - delete
 @login_required(login_url='login')
 def ClassDeleteView(request, pk):
     if request.method == "POST":
@@ -344,3 +346,17 @@ def ClassDeleteView(request, pk):
             'current_class': current_class
         }
         return render(request, 'class_delete.html', context)
+
+#completed - delete
+@login_required(login_url='login')
+def CompletedDeleteView(request, pk):
+    current_list = get_object_or_404(TodoList, pk=pk)
+    Tasks = TodoItem.objects.filter(todo_list=current_list)
+    
+    for task in Tasks:    
+        if task.completed == True:
+            task.delete()
+        
+    next = request.GET.get('next', reverse('home'))
+    return HttpResponseRedirect(next)
+    

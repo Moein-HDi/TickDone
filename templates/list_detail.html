@@ -50,7 +50,12 @@
               type="checkbox"
               name="task"
               value="{{ task.pk }}"
-              {% if task.completed %}checked{% endif %}
+              {%
+              if
+              task.completed
+              %}checked{%
+              endif
+              %}
               class="checkbox checkbox-primary ml-4"
             />
           </th>
@@ -67,7 +72,7 @@
             >
           </td>
           <th class="text-end">
-            {% if task.due_date %} {% if task.due_date == 1 %}
+            {% if task.due_date == 1 %}
             <div class="flex-none lg:text-base text-primary font-normal">
               فردا
             </div>
@@ -91,13 +96,11 @@
             >
               {{ task.due_date }} روز
             </div>
-            {% endif %} {% endif %}
+            {% endif %}
           </th>
         </tr>
-        
-        {% endfor %}
 
-        {% for task in NoDateTasks %}
+        {% endfor %} {% for task in NoDateTasks %}
         <tr>
           <th class="w-1">
             <input
@@ -121,7 +124,7 @@
             >
           </td>
           <th class="text-end">
-            {% if task.due_date %} {% if task.due_date == 1 %}
+            {% comment %} {% if task.due_date %} {% if task.due_date == 1 %}
             <div class="flex-none lg:text-base text-primary font-normal">
               فردا
             </div>
@@ -145,7 +148,7 @@
             >
               {{ task.due_date }} روز
             </div>
-            {% endif %} {% endif %}
+            {% endif %} {% endif %} {% endcomment %}
           </th>
         </tr>
         {% endfor %}
@@ -153,12 +156,39 @@
     </table>
 
     {% if DoneTasks %}
-    <div tabindex="0" class="mt-5 collapse collapse-arrow bg-base-100 rounded-lg">
-      <input type="checkbox" />
-      <div class="collapse-title font-bold opacity-50">
-        انجام شده ها
+    <div
+      tabindex="0"
+      class="mt-5 relative collapse collapse-arrow bg-base-100 rounded-lg"
+    >
+      <input id="collapse_check" onchange="toggleAnchorPoint()" type="checkbox" />
+      <div class="collapse-title font-bold opacity-50 flex">
+        <div>انجام شده ها</div>
+        
+      
       </div>
+      <div class="absolute block left-9 top-3 z-50" id="clear_div" style="display:none;">
+          <div class="flex items-center" id="clear_btn">
+            <a class="mx-auto btn btn-sm btn-square btn-ghost font-normal text-sm lg:text-base">
+              <span><i class="fa-solid fa-trash-can"></i></span>
+            </a>
+          </div>
+          <div class="flex items-center" id="confirm_btn" style="display:none;"> 
+            <a href="{% url 'completed_delete' current_list.pk %}?next={{ request.path }}" class="mx-auto btn btn-square btn-sm btn-ghost font-normal text-sm lg:text-base">
+              <i class="fa-solid fa-check"></i>
+            </a>
+          </div>
+          <div class="flex items-center" id="cancel_btn" style="display:none;"> 
+            <a class="mx-auto btn btn-square btn-sm btn-ghost font-normal text-sm lg:text-base">
+              <i class="fa-solid fa-xmark"></i>
+            </a>
+          </div>
+      </div>
+      
       <div class="collapse-content">
+        {% comment %} <div class="grow flex justify-center">
+          <a class="mx-auto btn btn-sm btn-ghost font-normal text-sm lg:text-base"
+            ><span><i class="fa-solid fa-trash-can"></i> پاک کردن لیست</span></a>
+        </div> {% endcomment %}
         <table class="table-compact lg:table w-full">
           <tbody>
             <!-- row 1 -->
@@ -185,7 +215,8 @@
                   >{% endif %}</a
                 >
               </td>
-              {% comment %} <th class="text-end">
+              {% comment %}
+              <th class="text-end">
                 {% if task.due_date %} {% if task.due_date == 1 %}
                 <div class="flex-none lg:text-base text-primary font-normal">
                   فردا
@@ -211,23 +242,21 @@
                   {{ task.due_date }} روز
                 </div>
                 {% endif %} {% endif %}
-              </th> {% endcomment %}
+              </th>
+              {% endcomment %}
             </tr>
-            
+
             {% endfor %}
-    
-            
           </tbody>
         </table>
       </div>
     </div>
-    {% endif %}
-    {% if not DoneTasks and not Tasks and not NoDateTasks %}
-        <div
-          class="mb-3 p-5 text-center justify-center text-lg font-semibold opacity-20"
-        >
-          هیچ کاری توی این لیست وجود نداره<br />(°ー°〃)
-        </div>
+    {% endif %} {% if not DoneTasks and not Tasks and not NoDateTasks %}
+    <div
+      class="mb-3 p-5 text-center justify-center text-lg font-semibold opacity-20"
+    >
+      هیچ کاری توی این لیست وجود نداره<br />(°ー°〃)
+    </div>
     {% endif %}
   </div>
 </div>

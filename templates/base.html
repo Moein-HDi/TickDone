@@ -186,6 +186,41 @@
         $(this).html($(this).html().replace('Esfand', 'اسفند'));
       });
     </script>
+    {% comment %} clear list confirm {% endcomment %}
+    <script>
+      function toggleAnchorPoint() {
+        var checkBox = document.getElementById("collapse_check");
+        var anchorPoint = document.getElementById("clear_div");
+        if (checkBox.checked == true){
+          anchorPoint.style.display = "block";
+        } else {
+          anchorPoint.style.display = "none";
+        }
+      }
+
+          // get the buttons
+    const clearBtn = document.getElementById("clear_btn");
+    const confirmBtn = document.getElementById("confirm_btn");
+    const cancelBtn = document.getElementById("cancel_btn");
+
+    // add click event listeners to the clear button
+    clearBtn.addEventListener("click", () => {
+        // hide the clear button
+        clearBtn.style.display = "none";
+        // show the confirm and cancel buttons
+        confirmBtn.style.display = "inline-block";
+        cancelBtn.style.display = "inline-block";
+    });
+
+    // add click event listener to the cancel button
+    cancelBtn.addEventListener("click", () => {
+        // hide the confirm and cancel buttons
+        confirmBtn.style.display = "none";
+        cancelBtn.style.display = "none";
+        // show the clear button
+        clearBtn.style.display = "block";
+    });
+    </script>
     <input type="checkbox" id="my-modal-4" class="modal-toggle" />
     <label for="my-modal-4" class="modal cursor-pointer">
       <label class="modal-box relative text-center" for="">
