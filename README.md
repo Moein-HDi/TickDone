@@ -26,5 +26,5 @@ https://tickdone.pythonanywhere.com/
 ![image](https://user-images.githubusercontent.com/60918091/233296104-c05daa26-4af6-4122-819c-36ad8ea3a440.png)
 ![image](https://user-images.githubusercontent.com/60918091/233296421-291e2bef-799f-4006-801e-e4059deb6bc6.png)
 ![image](https://user-images.githubusercontent.com/60918091/233295951-8baee768-1b09-456a-9859-0fe4fed395aa.png)
-![image](https://user-images.githubusercontent.com/60918091/233296573-422b878c-a66b-4c9a-938e-3eb43bf945cb.png)
+
 
